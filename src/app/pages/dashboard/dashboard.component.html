@@ -1,0 +1,128 @@
+<div class="row">
+  <div class="col-lg-4 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i class="nc-icon nc-sound-wave text-primary"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Non Fibrillation</p>
+              <p class="card-title">{{notFibirillation}}<p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i class="nc-icon nc-single-02 text-success"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Total</p>
+              <p class="card-title">{{total}}
+                <p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-5 col-md-4">
+            <div class="icon-big text-center icon-warning">
+              <i class="nc-icon nc-sound-wave text-danger"></i>
+            </div>
+          </div>
+          <div class="col-7 col-md-8">
+            <div class="numbers">
+              <p class="card-category">Fibrillation</p>
+              <p class="card-title">{{fibrillation}}
+                <p>
+            </div>
+          </div>
+        </div>
+      </div>
+<!--      <div class="card-footer ">-->
+<!--        <hr>-->
+<!--        <div class="stats">-->
+<!--          <i class="fa fa-clock-o"></i> In the last hour-->
+<!--        </div>-->
+<!--      </div>-->
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-chart">
+      <div class="card-header">
+        <h5 class="card-title">Dossiers</h5>
+        <p class="card-category">Graphique Linéaire </p>
+      </div>
+      <div class="card-body">
+        <canvas id="speedChart" width="400" height="100"></canvas>
+      </div>
+      <div class="card-footer">
+        <div class="chart-legend">
+          <i class="fa fa-circle text-info"></i> Patients non atteints de Fibrillation
+          <i class="fa fa-circle text-danger"></i>Patients atteints de Fibrillation
+        </div>
+        <hr/>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Liste des dossiers</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="text-primary">
+              <th>Numero de dossier</th>
+              <th>Nom</th>
+              <th>Age</th>
+              <th>Fibrillation</th>
+              <th class=" text-center">Details</th>
+              <th class=" text-center">Modifier</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let dossier of fetchedDossier">
+              <td>{{ dossier.dossierNumber }}</td>
+              <td>{{ dossier.fullName }}</td>
+              <td>{{ dossier.age }}</td>
+              <td>{{ dossier.diagnostic }}</td>
+              <td class=" text-center">
+                <div class="card-icon" style="cursor: pointer" (click)="openDetails(dossier)">
+                  <i class="nc-icon nc-zoom-split"></i>
+                </div>
+              </td>
+              <td class=" text-center">
+                <div class="card-icon" style="cursor: pointer" (click)="updateDossier(dossier)">
+                  <i class="nc-icon nc-ruler-pencil"></i>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
