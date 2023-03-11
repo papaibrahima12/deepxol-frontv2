@@ -1,15 +1,29 @@
 
-<div class="sidebar-wrapper">
-  <div class="logo">
-    <a href="http://www.creative-tim.com" class="simple-text logo-mini">
-      <div class="logo-image-small">
-        <img src="assets/img/Deepxol.png" alt="">
-      </div>
-    </a>
-    <a href="https://www.creative-tim.com" class="simple-text logo-normal">
-      Deepxol
-    </a>
+<div class="logo">
+  <div class="row">
+    <div class="column" style="margin-left: 30px;">
+      <img src="../../assets/img/ucad.jpeg" width="60px" height="60px" alt="ucad" class="img-fluid" >
+    </div>
+    <div class="column" style="margin-top: 11px;">
+      <img src="../../assets/img/logo-ird.jpeg" width="60px" height="60px" alt="ird" class="img-fluid" >
+    </div>
+    <div class="column" style="margin-top: 10px;">
+      <img src="../../assets/img/ummisco.webp" width="60px" height="60px" alt="ummisco" class="img-fluid" >
+    </div>
+    <div class="column" style="margin-left: 30px;">
+        <img src="../../assets/img/hald.jpeg" width="60px" height="60px" alt="ucad" class="img-fluid" width="50" height="50">
+    </div>
   </div>
+  <!-- <a href="http://www.creative-tim.com" class="simple-text logo-mini">
+    <div class="logo-image-small">
+      <img src="assets/img/Deepxol.png" alt="">
+    </div>
+  </a>
+  <a href="https://www.creative-tim.com" class="simple-text logo-normal">
+    Deepxol
+  </a> -->
+</div>
+<div class="sidebar-wrapper">
     <ul class="nav">
         <li *ngFor="let menuItem of menuItems" routerLinkActive="active" class="{{menuItem.class}}">
             <a [routerLink]="[menuItem.path]">
