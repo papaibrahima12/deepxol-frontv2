@@ -1,76 +1,79 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import Swal from "sweetalert2";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 import {DossierService} from "../../services/dossier.service";
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
+import { Observable, Subject } from 'rxjs';
+import { Validators } from '@angular/forms';
+import { Dossier } from 'app/models/dossier';
+import { response } from 'express';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'user-cmp',
     moduleId: module.id,
-    templateUrl: 'user.component.html'
+    templateUrl: 'user.component.html',
+    styleUrls: ['./user.component.scss']
 })
 
 export class UserComponent implements OnInit{
-  updateDossierForm: FormGroup;
-  selectedDossier: any
+  public data?: Dossier;
+  updateDossierForm: FormGroup = new FormGroup({
+    diagnostic: new FormControl('',Validators.required),
+    antecedant: new FormControl('',Validators.required),
+    implantationOlder: new FormControl('',Validators.required),
+    fibrilationLoad: new FormControl('',Validators.required),
+    insuffisanceCardiaque: new FormControl('',Validators.required),
+    tach_arter: new FormControl('',Validators.required),
+    tach_arter_value: new FormControl('',Validators.required),
+    chads_vasc: new FormControl('',Validators.required),
+  });
+  selectedDossier: any;
   antecedantList: string[] = ['Hypertension', 'Diabete', 'AVC', 'Apnee de Sommeil', 'Obesite', 'Asthme'];
-  selectedImgUrl: any;
+  public onClose: Subject<boolean> = new Subject();
+  fetchedDossier: any;
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private _matDialog: MatDialog,
-    private _formBuilder: FormBuilder,
+    private bsModalService: BsModalService,
+    private toastrService: ToastrService,
     private _dossierService: DossierService,
   ) { }
 
   ngOnInit() {
-    this.selectedDossier = this.data.dossier;
-    this.updateDossierForm = this._formBuilder.group({
-      electro: this.selectedDossier.electro,
-      diagnostic: this.selectedDossier.diagnostic,
-      antecedant: this.selectedDossier.antecedant,
-      implantationOlder: this.selectedDossier.implantationOlder,
-      fibrilationLoad: this.selectedDossier.fibrilationLoad,
-      insuffisanceCardiaque: this.selectedDossier.insuffisanceCardiaque,
-      tach_arter: this.selectedDossier.tach_arter,
-      tach_arter_value: this.selectedDossier.tach_arter_value,
-      chads_vasc: this.selectedDossier.chads_vasc,
+    this.selectedDossier = this.data;
+    this.doInitFormUpdate();
+
+  }
+  doInitFormUpdate() {
+    this.updateDossierForm.setValue({
+      diagnostic: this.data?.diagnostic,
+      antecedant: this.data?.antecedant,
+      implantationOlder: this.data?.implantationOlder,
+      fibrilationLoad: this.data?.fibrilationLoad,
+      insuffisanceCardiaque: this.data?.insuffisanceCardiaque,
+      tach_arter: this.data?.tach_arter,
+      tach_arter_value: this.data?.tach_arter_value,
+      chads_vasc: this.data?.chads_vasc,
     })
   }
 
-  updateDossier() {
-    if (this.updateDossierForm.invalid) {
-      return;
-    }
-    const payload = Object.assign({}, this.updateDossierForm.value);
-    const formDataUpdate = new FormData();
-
-    formDataUpdate.append('diagnostic', payload?.diagnostic)
-    formDataUpdate.append('antecedant', payload?.antecedant)
-    formDataUpdate.append('implantationOlder', payload?.implantationOlder)
-    formDataUpdate.append('fibrilationLoad', payload?.fibrilationLoad)
-    formDataUpdate.append('insuffisanceCardiaque', payload?.insuffisanceCardiaque)
-    formDataUpdate.append('chads_vasc', payload?.chads_vasc)
-    formDataUpdate.append('tach_arter', payload?.tach_arter)
-    formDataUpdate.append('tach_arter_value', payload?.tach_arter_value)
-
-    this._dossierService.updateDossier(this.selectedDossier._id, formDataUpdate).subscribe({
-      next() {
-        Swal.fire({
-          icon: 'success',
-          title: 'Success',
-          text: 'Dossier modifié avec succès',
-          timer: 1000
-        })
-        this._router.navigateByUrl('/#/table-list')
-      },
-      error() {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Quelque chose s\'est mal passé !',
-          timer: 1000
-        })
-      },
+  updateDossier(id: string, body: Dossier) {
+    this._dossierService.updateDossier(id,body).subscribe(response =>{
+      this.toastrService.success('Succès', 'Modification Réussie!');
+      this.onClose.next(true);
+      this.closeModal();
+    }, (err: HttpErrorResponse) => {
+      this.toastrService.error('Erreur', 'Erreur lors de la modification du dossier!');
+      throw new Error(err.error);
     })
+  }
+
+  submit() {
+      this.updateDossier(this.selectedDossier._id, this.updateDossierForm.value);
+  }
+
+  closeModal(): void {
+    this.bsModalService.hide();
   }
 }

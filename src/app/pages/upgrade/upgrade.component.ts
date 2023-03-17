@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {map, Observable} from "rxjs";
+import {map, Observable, Subject} from "rxjs";
 import Swal from 'sweetalert2';
 import {MatDialog} from "@angular/material/dialog";
 import {Router} from "@angular/router";
 import {DossierService} from "../../services/dossier.service";
+import { ToastrService } from 'ngx-toastr';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'upgrade-cmp',
@@ -22,13 +25,16 @@ export class UpgradeComponent implements OnInit{
   selectedImgUrl: any;
   selectedImgFile: File;
   selectedXmlFile: File;
+  public onClose: Subject<boolean> = new Subject();
+
 
   constructor(
     private _formBuilder: FormBuilder,
     private _dossierService: DossierService,
     private _matDialog: MatDialog,
-    private _router: Router
-
+    private _router: Router,
+    private toastrService: ToastrService,
+    private bsModalService: BsModalService,
   ) { }
 
   ngOnInit() {
@@ -94,24 +100,17 @@ export class UpgradeComponent implements OnInit{
     formData.append('tach_arter', payload?.tach_arter)
     formData.append('tach_arter_value', payload?.tach_arter_value)
 
-    this._dossierService.createDossier(formData).subscribe({
-      next(value) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Success',
-          text: 'Dossier enregistré avec succés',
-          timer: 1000
-        })
-        this._router.navigateByUrl('/#/table-list')
-      },
-      error(err) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Quelque chose s\'est mal passé !',
-          timer: 1000
-        })
-      },
+    this._dossierService.createDossier(formData).subscribe(response =>{
+      this.toastrService.success('Succés', 'Dossier crée avec succés !');
+      this.onClose.next(true);
+      this.closeModal();
+    }, (err: HttpErrorResponse) => {
+      this.toastrService.error('Erreur', 'Erreur lors de la création de dossier!');
+      throw new Error(err.error);
     })
   }
+  closeModal(){
+    this._matDialog.closeAll();
+  }
+
 }

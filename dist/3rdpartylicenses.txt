@@ -29,9 +29,6 @@ THE SOFTWARE.
 @angular/common
 MIT
 
-@angular/compiler
-MIT
-
 @angular/core
 MIT
 
@@ -185,6 +182,21 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
+
+ngx-bootstrap/component-loader
+MIT
+
+ngx-bootstrap/focus-trap
+MIT
+
+ngx-bootstrap/modal
+MIT
+
+ngx-bootstrap/positioning
+MIT
+
+ngx-bootstrap/utils
+MIT
 
 ngx-toastr
 MIT

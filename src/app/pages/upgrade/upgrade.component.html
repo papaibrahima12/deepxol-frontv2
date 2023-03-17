@@ -3,8 +3,8 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header" style="background-color: #67cacd;">
-            <h4 class="card-title" style="color: white;">Creation Dossier</h4>
+          <div class="card-header" style="background-color: rgb(0, 98, 255);">
+            <h4 class="card-title pull-left" style="color: white;">Creation Dossier</h4>
           </div>
           <div class="card-body">
             <form [formGroup]="createDossierForm">
@@ -140,7 +140,8 @@
                   </mat-card>
                 </div>
               </div>
-              <button mat-raised-button type="submit" style="background-color: #67cacd;" class="btn pull-right" (click)="addDossier()">Enregistrer</button>
+              <button mat-raised-button type="submit" style="background-color: rgb(0, 98, 255);" class="btn pull-right" (click)="addDossier()">Enregistrer</button>
+              <button mat-raised-button type="submit" style="background-color: rgb(255, 0, 0);" class="btn pull-right" (click)="closeModal()">Fermer</button>
               <div class="clearfix"></div>
             </form>
           </div>

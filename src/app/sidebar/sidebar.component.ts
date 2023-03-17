@@ -10,6 +10,7 @@ export interface RouteInfo {
 
 export const ROUTES: RouteInfo[] = [
     { path: '/dashboard',     title: 'Dashboard',         icon:'nc-bank',       class: '' },
+    { path: '/dossiers',     title: 'Dossiers Patients',         icon:'nc-paper',       class: '' },
 ];
 
 @Component({

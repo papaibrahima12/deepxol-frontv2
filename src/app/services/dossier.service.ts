@@ -31,7 +31,7 @@ export class DossierService {
     return this._httpClient.post(`${environment.apiUrl}/api/dossier`, data)
   }
 
-  updateDossier(id: string, dossier: FormData) {
+  updateDossier(id: string, dossier: Dossier) {
     console.log(dossier)
     return this._httpClient.put<Dossier>(`${environment.apiUrl}/api/dossier/${id}`, dossier)
   }
@@ -42,6 +42,9 @@ export class DossierService {
         tap(nodes => this._fetchedDossiers.next(nodes)),
       )
   }
+  getAllDossiers(): Observable<Dossier[]>{
+    return this._httpClient.get<Dossier[]>(`${environment.apiUrl}/api/dossier`)
+  }
 
   getStatistic(): Observable<any> {
     return this._httpClient.get<any>(`${environment.apiUrl}/api/dossier/statistics`)
@@ -49,10 +52,7 @@ export class DossierService {
         tap(payload => this._fetchedStatistics.next(payload)),
       )
   }
-  // search(number: string): Observable<any> {
-  //   return this._httpClient.get(`${environment.apiUrl}/api/dossier/number/${number}`)
-  //     .pipe(map(
-  //       (r: Response) => r.json())
-  //     );
-  // }
+  deleteDossier(id:string){
+    return this._httpClient.delete<Object>( `${environment.apiUrl}/api/dossier/${id}`);
+  }  
 }

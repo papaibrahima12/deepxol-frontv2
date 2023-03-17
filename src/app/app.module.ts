@@ -6,8 +6,6 @@ import { ToastrModule } from "ngx-toastr";
 import { SidebarModule } from './sidebar/sidebar.module';
 import { FooterModule } from './shared/footer/footer.module';
 import { NavbarModule} from './shared/navbar/navbar.module';
-import { FixedPluginModule} from './shared/fixedplugin/fixedplugin.module';
-
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 
@@ -20,13 +18,19 @@ import {MatSelectModule} from "@angular/material/select";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {MatDialogModule} from "@angular/material/dialog";
 import { LoginComponent } from './pages/login/login.component';
+import { ListDossiersComponent } from './pages/list-dossiers/list-dossiers.component';
+import { ModalModule } from "ngx-bootstrap/modal";
+import { DeleteDossierComponent } from './pages/delete-dossier/delete-dossier.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    LoginComponent
+    LoginComponent,
+    ListDossiersComponent,
+    DeleteDossierComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -38,7 +42,6 @@ import { LoginComponent } from './pages/login/login.component';
     ToastrModule.forRoot(),
     FooterModule,
     HttpClientModule,
-    FixedPluginModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
@@ -46,11 +49,16 @@ import { LoginComponent } from './pages/login/login.component';
     ReactiveFormsModule,
     NgbModule,
     RouterModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 2000,
+      positionClass: 'toast-bottom-left',
+      preventDuplicates: true,
+    }),
     ReactiveFormsModule,
     MatRadioModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    ModalModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

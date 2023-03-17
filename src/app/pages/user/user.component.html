@@ -1,54 +1,21 @@
-<div class="row">
-  <div class="col-md-12">
-    <h3 class="card-title mt-0 text-center">Modification du Dossier: {{selectedDossier.dossierNumber}}</h3>
-  </div>
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Modification du Dossier: <span style="color: rgb(0, 98, 255);">{{selectedDossier.dossierNumber}}</span></h4>
+  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true" class="visually-hidden">&times;</span>
+  </button>
 </div>
-<hr>
 <div class="main-content">
   <div class="container-fluid">
-    <!--        <div class="row">-->
-    <!--            <div class="col-md-12">-->
-    <!--                <div class="card">-->
-    <!--                    <div class="card-header" style="background-color: #386fb0;">-->
-    <!--                        <h4 class="card-title" style="color: white">Etat Civil</h4>-->
-    <!--                    </div>-->
-    <!--                    <div class="card-body">-->
-    <!--                        <div class="alert-primary fluid" style="border-radius: 10px;padding-left: 10px;">-->
-    <!--                            <mat-form-field class="example-full-width" appearance="fill">-->
-    <!--                                <mat-label>Nom</mat-label>-->
-    <!--                                <input type="text" matInput [formControlName]="'fullName'"  value="{{selectedDossier.fullName}}">-->
-    <!--                            </mat-form-field>-->
-    <!--                            <mat-form-field class="example-full-width" appearance="fill">-->
-    <!--                                <mat-label>Genre</mat-label>-->
-    <!--                                <input type="text" matInput [formControlName]="'gender'" value="{{selectedDossier.gender}}">-->
-    <!--                            </mat-form-field>-->
-    <!--                            <mat-form-field class="example-full-width" appearance="fill">-->
-    <!--                                <mat-label>Age</mat-label>-->
-    <!--                                <input type="text" matInput [formControlName]="'age'" value="{{selectedDossier.age}}">-->
-    <!--                            </mat-form-field>-->
-    <!--                            <mat-form-field class="example-full-width" appearance="fill">-->
-    <!--                                <mat-label>Adresse</mat-label>-->
-    <!--                                <input type="text" matInput [formControlName]="'address'" value="{{selectedDossier.address}}">-->
-    <!--                            </mat-form-field>-->
-    <!--                            <mat-form-field class="example-full-width" appearance="fill">-->
-    <!--                                <mat-label>Telephone</mat-label>-->
-    <!--                                <input type="text" matInput [formControlName]="'phone'" value="{{selectedDossier.phone}}">-->
-    <!--                            </mat-form-field>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                </div>  -->
-    <!--            </div>-->
-    <!--        </div>-->
     <form [formGroup]="updateDossierForm">
       <div class="row">
         <div class="col-md-12">
           <div class="card">
-            <div class="card-header" style="background-color: #67cacd;">
+            <div class="card-header" style="background-color: rgb(0, 98, 255);">
               <h4 class="card-title" style="color: white">Antécédents medicaux</h4>
             </div>
             <div class="card-body">
               <mat-select [formControlName]="'antecedant'" value="{{selectedDossier.antecedant}}" multiple>
-                <mat-option *ngFor="let antecedant of selectedDossier.antecedant" [value]="antecedant">{{antecedant}}</mat-option>
+                <mat-option *ngFor="let antecedant of antecedantList" [value]="antecedant">{{antecedant}}</mat-option>
               </mat-select>
             </div>
           </div>
@@ -57,7 +24,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="card">
-            <div class="card-header" style="background-color: #67cacd;">
+            <div class="card-header" style="background-color: rgb(0, 98, 255);">
               <h4 class="card-title" style="color: white">Informations médicales</h4>
             </div>
             <div class="card-body">
@@ -104,7 +71,7 @@
           </div>
         </div>
       </div>
-      <button mat-raised-button type="submit" style="background-color: #67cacd;" class="btn pull-right" (click)="updateDossier()">Enregistrer</button>
+      <button mat-raised-button type="submit" style="background-color: rgb(0, 98, 255);" class="btn pull-right" (click)="submit()">Enregistrer</button>
       <div class="clearfix"></div>
     </form>
   </div>

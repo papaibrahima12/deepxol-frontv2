@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">Suppression Dossier</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true" class="visually-hidden" (click)="closeModal()">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Etes vous sûr de bien vouloir supprimer le dossier <span style="color: blue;">{{selectedDossier.dossierNumber}}</span> ?
+  </div>
+  <div class="modal-footer">
+    <button type="button" (click)="closeModal()" class="btn btn-secondary w-25">
+        Retour
+    </button>
+    <button type="button" (click)="deleteData()" class="btn btn-danger w-25">OUI</button>
+  </div>

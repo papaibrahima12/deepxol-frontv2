@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Liste des dossiers</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="text-primary">
+              <th>Numero de dossier</th>
+              <th>Nom</th>
+              <th>Age</th>
+              <th>Fibrillation</th>
+              <th class=" text-center">Details</th>
+              <th class=" text-center">Modifier</th>
+              <th class=" text-center">Supprimer</th>
+              </thead>
+              <tbody>
+              <tr *ngFor="let dossier of dossier$ | async">
+                <td>{{ dossier.dossierNumber }}</td>
+                <td>{{ dossier.fullName }}</td>
+                <td>{{ dossier.age }}</td>
+                <td>{{ dossier.diagnostic }}</td>
+                <td class=" text-center">
+                  <div class="card-icon" style="cursor: pointer" (click)="openDetails(dossier)">
+                    <i class="nc-icon nc-zoom-split "></i>
+                  </div>
+                </td>
+                <td class=" text-center">
+                  <div class="card-icon" style="cursor: pointer" (click)="updateDossier(dossier)" >
+                    <i class="nc-icon nc-ruler-pencil text-primary"></i>
+                  </div>
+                </td>
+                <td class=" text-center">
+                  <div class="card-icon" style="cursor: pointer" (click)="deleteDossier(dossier)">
+                    <i class="nc-icon nc-simple-remove text-danger"></i>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
